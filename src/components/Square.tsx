@@ -1,23 +1,11 @@
-import { KonvaEventObject } from "konva/lib/Node";
 import { useState } from "react";
 import { Line } from "react-konva";
 import ResizeHandle from "./ResizeHandle";
 
 const Square = (props: any) => {
-  const [isDragging, setDragging] = useState(false);
   const [isHover, setIsHover] = useState(false);
 
-  const onDragStart = (evt: KonvaEventObject<DragEvent>) => {
-    props.onDragStart(evt);
-    setDragging(true);
-  };
-
-  const onDragEnd = (evt: KonvaEventObject<DragEvent>) => {
-    props.onDragEnd(evt);
-    setDragging(false);
-  };
-
-  const onHover = () => {
+  const onHover = (evt: any) => {
     setIsHover(true);
   };
 
@@ -32,20 +20,17 @@ const Square = (props: any) => {
         id={props.id + "-square"}
         points={props.points}
         fill={props.fill}
-        stroke={isDragging ? "brack" : "#dcdcdc"}
+        stroke={"#dcdcdc"}
         opacity={0.8}
         closed={true}
-        draggable={true}
-        onDragStart={onDragStart}
-        onDragEnd={onDragEnd}
         onPointerEnter={onHover}
         onPointerLeave={onLeave}
       ></Line>
       <ResizeHandle
-        key={"handle"}
-        id={"handle"}
+        key={props.id + "handle"}
+        id={props.id + "handle"}
         points={props.points}
-        isHover={isHover}
+        show={isHover}
       ></ResizeHandle>
     </>
   );
