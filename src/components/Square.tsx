@@ -31,6 +31,7 @@ const Square = (props: any) => {
         id={props.id + "handle"}
         points={props.points}
         show={isHover}
+        onResizeEnd={props.onResizeEnd}
       ></ResizeHandle>
     </>
   );

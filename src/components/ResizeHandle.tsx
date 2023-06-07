@@ -6,7 +6,7 @@ interface _props {
   id: string;
   points: number[];
   show: boolean;
-  onResizeEnd?: () => void;
+  onResizeEnd?: (list: number[]) => void;
 }
 
 interface _coordinate {
@@ -78,15 +78,18 @@ const ResizeHandle = (props: _props) => {
         }
       })
     );
-    // ただし、X方向・Y方向のどちらに動いていいかは、制約する
-    // 隣接している線にも伝達して、末端を合わせて伸ばす描画
   };
 
   const onDragEnd = (coordKey: string) => {
     setDraggingKey("");
     setShow(false);
     if (props.onResizeEnd) {
-      props.onResizeEnd();
+      const points: number[] = [];
+      coordinatesList.forEach((cd) => {
+        points.push(cd.x);
+        points.push(cd.y);
+      });
+      props.onResizeEnd(points);
     }
   };
 

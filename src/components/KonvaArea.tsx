@@ -47,6 +47,18 @@ const KonvaArea = (props: any) => {
     return newPoints;
   };
 
+  const onResizeEnd = (points: number[], idx: number) => {
+    updateSquarePos(
+      squarePos.map((pos, i) => {
+        if (i === idx) {
+          return points;
+        } else {
+          return pos;
+        }
+      })
+    );
+  };
+
   return (
     <div
       style={{
@@ -67,6 +79,7 @@ const KonvaArea = (props: any) => {
               onDragStart(evt, 0)
             }
             onDragEnd={(evt: KonvaEventObject<DragEvent>) => onDragEnd(evt, 0)}
+            onResizeEnd={(points: number[]) => onResizeEnd(points, 0)}
           ></Square>
 
           <Square
@@ -78,6 +91,7 @@ const KonvaArea = (props: any) => {
               onDragStart(evt, 1)
             }
             onDragEnd={(evt: KonvaEventObject<DragEvent>) => onDragEnd(evt, 1)}
+            onResizeEnd={(points: number[]) => onResizeEnd(points, 1)}
           ></Square>
         </Layer>
         <Layer key="dragging-layer" ref={draggingLayer}></Layer>
